@@ -85,9 +85,8 @@ runs:
         known_hosts: unnecessary
 
     # The current folder must be a symlink
-    - if: ${{ steps.hosting.outputs.shall-sync }}
+    - name: Remove "current" directory
       shell: bash
-      name: Remove "current" directory
       run: |
         ssh -l "${{ steps.hosting.outputs.ssh-user }}" -p "${{ steps.hosting.outputs.ssh-port }}" "${{ steps.hosting.outputs.ssh-host }}" -o StrictHostKeyChecking=no "[ ! -L ${{ steps.hosting.outputs.deploy-path }}/current ] && [ -d ${{ steps.hosting.outputs.deploy-path }}/current ] && rm -r ${{ steps.hosting.outputs.deploy-path }}/current || true"
 
