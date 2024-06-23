@@ -1,4 +1,4 @@
-name: Build on Hosting.de
+name: Deploy to Hosting.de
 description: Sets ups web-spaces on Hosting.de, persists environment variables and syncs contents among environments.
 branding:
   icon: 'arrow-right-circle'
@@ -27,7 +27,7 @@ inputs:
   php-version:
     description: The php version used for build step.
     required: true
-  build-hook:
+  build:
     description: Shell script for building environment before deployment
 
 outputs:
@@ -112,9 +112,7 @@ runs:
     # Run build hook
     - name: Run build hook
       shell: bash
-      env:
-        APP: ${{ inputs.app }}
-      run: ${{ inputs.build-hook }}
+      run: ${{ inputs.build }}
 
     # Run deployer
     - name: Deploy
